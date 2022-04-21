@@ -44,6 +44,26 @@ namespace Integracion
         }
 
         [WebMethod]
+        public void ActualizarCierre(int IDapertura)
+        {
+            FacturasTableAdapter FacturasTableAdapter = new FacturasTableAdapter();
+            FacturasTableAdapter.Connection.Open();
+            try
+            {
+                FacturasTableAdapter.Transaction = FacturasTableAdapter.Transaction.Connection.BeginTransaction();
+                FacturasTableAdapter.proc_ActualizarCierre(IDapertura);
+                FacturasTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                FacturasTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            FacturasTableAdapter.Connection.Close();
+            log.Info("Cierre Actualizados Correctamente");
+        }
+
+        [WebMethod]
         public void ActualizarBilletes(int IDApertura, int UsuarioID, bool OperacionCaja, int Monedas1Peso, int Monedas5Peso, int Monedas10Peso, int Monedas25Peso, int Billetes50Pesos, int Billetes100Pesos, int Billetes200Pesos, int Billetes500Pesos, int Billetes1000Pesos, int Billetes2000Pesos)
         {
             AperturaCierreCajaTableAdapter AperturaCierreCajaadapter = new AperturaCierreCajaTableAdapter();
