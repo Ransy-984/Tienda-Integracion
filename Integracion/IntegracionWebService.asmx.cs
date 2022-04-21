@@ -186,6 +186,135 @@ namespace Integracion
 
         }
 
+        [WebMethod]
+        public void DetalleCotizacion(int IdCotizacion, int IdProducto, int cantidad)
+        {
+            CotizacionesDetalleTableAdapter cotizacionesDetalleTableAdapter = new CotizacionesDetalleTableAdapter();
+            cotizacionesDetalleTableAdapter.Connection.Open();
+            try
+            {
+                cotizacionesDetalleTableAdapter.Transaction = cotizacionesDetalleTableAdapter.Transaction.Connection.BeginTransaction();
+                cotizacionesDetalleTableAdapter.proc_DetalleCotizacion(IdCotizacion, IdProducto, cantidad);
+                cotizacionesDetalleTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                cotizacionesDetalleTableAdapter.Transaction.Rollback();
+                log.Error(err);            
+            }
+            cotizacionesDetalleTableAdapter.Connection.Close();
+            log.Info("Detalle de cotizacion insertado exitosamente");
+        }
+
+        [WebMethod]
+        public void DetalleFactura(int IdCotizacion, int IdProducto, int cantidad)
+        {
+            CotizacionesDetalleTableAdapter cotizacionesDetalleTableAdapter = new CotizacionesDetalleTableAdapter();
+            cotizacionesDetalleTableAdapter.Connection.Open();
+            try
+            {
+                cotizacionesDetalleTableAdapter.Transaction = cotizacionesDetalleTableAdapter.Transaction.Connection.BeginTransaction();
+                cotizacionesDetalleTableAdapter.proc_DetalleCotizacion(IdCotizacion, IdProducto, cantidad);
+                cotizacionesDetalleTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                cotizacionesDetalleTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            cotizacionesDetalleTableAdapter.Connection.Close();
+            log.Info("Detalle de factura insertado exitosamente");
+        }
+
+        [WebMethod]
+        public void ExistenciaProducto(int IdProducto)
+        {
+            ProductosTableAdapter productosTableAdapter = new ProductosTableAdapter();
+            productosTableAdapter.Connection.Open();
+            try
+            {
+                productosTableAdapter.proc_ExistenciaProducto(IdProducto);
+            }
+            catch (Exception err)
+            {
+                log.Error(err);
+            }
+            productosTableAdapter.Connection.Close();
+        }
+
+        [WebMethod]
+        public void HistorialFactura()
+        {
+            FacturasTableAdapter FacturasTableAdapter = new FacturasTableAdapter();
+            FacturasTableAdapter.Connection.Open();
+            try
+            {
+                FacturasTableAdapter.proc_HistorialFacturas(); ;
+            }
+            catch (Exception err)
+            {
+                log.Error(err);
+            }
+            FacturasTableAdapter.Connection.Close();
+        }
+
+        [WebMethod]
+        public void InsertarCotizacion(int IdCliente, string RNC)
+        {
+            CotizacionesTableAdapter cotizacionesTableAdapter = new CotizacionesTableAdapter();
+            cotizacionesTableAdapter.Connection.Open();
+            try
+            {
+                cotizacionesTableAdapter.Transaction = cotizacionesTableAdapter.Transaction.Connection.BeginTransaction();
+                cotizacionesTableAdapter.proc_InsertarCotizacion(IdCliente, RNC);
+                cotizacionesTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                cotizacionesTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            cotizacionesTableAdapter.Connection.Close();
+            log.Info("Cotizacion insertada exitosamente");
+        }
+
+        [WebMethod]
+        public void InsertarFactura(int IdCliente, int IdUsuario, string TipoFactura, string sucursal, string RNC, string MetodoPago)
+        {
+            FacturasTableAdapter FacturasTableAdapter = new FacturasTableAdapter();
+            FacturasTableAdapter.Connection.Open();
+            try
+            {
+                FacturasTableAdapter.Transaction = FacturasTableAdapter.Transaction.Connection.BeginTransaction();
+                FacturasTableAdapter.proc_InsertarFactura(IdCliente, IdUsuario, TipoFactura, sucursal, RNC, MetodoPago);
+                FacturasTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                FacturasTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            FacturasTableAdapter.Connection.Close();
+            log.Info("Factura insertada exitosamente");
+
+        }
+
+        [WebMethod]
+        public void Login(string user, string password)
+        {
+            UsuariosTableAdapter usuariosTableAdapter = new UsuariosTableAdapter();
+            usuariosTableAdapter.Connection.Open();
+            try
+            {
+                usuariosTableAdapter.proc_Login(user, password);
+            }
+            catch (Exception err)
+            {
+                log.Error(err);                
+            }
+            usuariosTableAdapter.Connection.Close();
+        }
+
 
     }
 }
