@@ -107,5 +107,85 @@ namespace Integracion
 
         }
 
+        [WebMethod]
+        public void CajaCerrada(int IDapertura)
+        {
+            AperturaCierreCajaTableAdapter AperturaCierreCajaadapter = new AperturaCierreCajaTableAdapter();
+            AperturaCierreCajaadapter.Connection.Open();
+            try
+            {
+                AperturaCierreCajaadapter.Transaction = AperturaCierreCajaadapter.Transaction.Connection.BeginTransaction();
+                AperturaCierreCajaadapter.proc_CajaCerrada(IDapertura);
+                AperturaCierreCajaadapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                AperturaCierreCajaadapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            AperturaCierreCajaadapter.Connection.Close();
+            log.Info("Caja confirmada cerrada de manera exitosa");
+        }
+
+        [WebMethod]
+        public void CargarClientes(int IDclientes)
+        {
+            ClientesTableAdapter ClientesTableAdapter = new ClientesTableAdapter();
+            ClientesTableAdapter.Connection.Open();
+            try
+            {
+                ClientesTableAdapter.Transaction = ClientesTableAdapter.Transaction.Connection.BeginTransaction();
+                ClientesTableAdapter.proc_CargarClientes(IDclientes);
+                ClientesTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                ClientesTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            log.Info("Clientes Cargados exitosamente");
+        }
+
+        [WebMethod]
+        public void CierreCaja(int IDUsuario)
+        {
+            AperturaCierreCajaTableAdapter AperturaCierreCajaadapter = new AperturaCierreCajaTableAdapter();
+            AperturaCierreCajaadapter.Connection.Open();
+            try
+            {
+                AperturaCierreCajaadapter.Transaction = AperturaCierreCajaadapter.Transaction.Connection.BeginTransaction();
+                AperturaCierreCajaadapter.proc_CierreCaja(IDUsuario);
+                AperturaCierreCajaadapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                AperturaCierreCajaadapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            AperturaCierreCajaadapter.Connection.Close();
+            log.Info("Caja cerrada de manera exitosa");
+        }
+
+        [WebMethod]
+        public void CxC()
+        {
+            FacturasTableAdapter FacturasTableAdapter = new FacturasTableAdapter();
+            FacturasTableAdapter.Connection.Open();
+            try
+            {
+                FacturasTableAdapter.Transaction = FacturasTableAdapter.Transaction.Connection.BeginTransaction();
+                FacturasTableAdapter.proc_CxC();
+                FacturasTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                FacturasTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            FacturasTableAdapter.Connection.Close();           
+
+        }
+
+
     }
 }
