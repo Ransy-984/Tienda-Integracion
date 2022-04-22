@@ -315,6 +315,125 @@ namespace Integracion
             usuariosTableAdapter.Connection.Close();
         }
 
+        [WebMethod]
+        public void DeleteClientes(int IDclientes)
+        {
+            ClientesTableAdapter ClientesTableAdapter = new ClientesTableAdapter();
+            ClientesTableAdapter.Connection.Open();
+            try
+            {
+                ClientesTableAdapter.Transaction = ClientesTableAdapter.Transaction.Connection.BeginTransaction();
+                ClientesTableAdapter.ppDeleteCliente(IDclientes);
+                ClientesTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                ClientesTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            log.Info("Clientes Borrados exitosamente");
+        }
+
+        [WebMethod]
+        public void DeleteCotizacion(int IdCliente)
+        {
+            CotizacionesTableAdapter cotizacionesTableAdapter = new CotizacionesTableAdapter();
+            cotizacionesTableAdapter.Connection.Open();
+            try
+            {
+                cotizacionesTableAdapter.Transaction = cotizacionesTableAdapter.Transaction.Connection.BeginTransaction();
+                cotizacionesTableAdapter.ppDeleteCotizacion(IdCliente);
+                cotizacionesTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                cotizacionesTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            cotizacionesTableAdapter.Connection.Close();
+            log.Info("Cotizacion insertada exitosamente");
+        }
+
+        [WebMethod]
+        public void DeleteFactura(int IdCliente)
+        {
+            FacturasTableAdapter FacturasTableAdapter = new FacturasTableAdapter();
+            FacturasTableAdapter.Connection.Open();
+            try
+            {
+                FacturasTableAdapter.Transaction = FacturasTableAdapter.Transaction.Connection.BeginTransaction();
+                FacturasTableAdapter.ppDeleteFactura(IdCliente);
+                FacturasTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                FacturasTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            FacturasTableAdapter.Connection.Close();
+            log.Info("Factura borrada exitosamente");
+
+        }
+
+        [WebMethod]
+        public void DeletePerfil(int IdPerfil)
+        {
+            PerfilesTableAdapter perfilesTableAdapter = new PerfilesTableAdapter();
+            perfilesTableAdapter.Connection.Open();
+            try
+            {
+                perfilesTableAdapter.Transaction = perfilesTableAdapter.Transaction.Connection.BeginTransaction();
+                perfilesTableAdapter.ppDeletePerfil(IdPerfil);
+                perfilesTableAdapter.Transaction.Commit();  
+            }
+            catch (Exception err)
+            {
+                perfilesTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            perfilesTableAdapter.Connection.Close();
+            log.Info("Perfil eliminado exitosamente");
+        }
+
+        [WebMethod]
+        public void DeleteProducto(int IdProducto)
+        {
+            ProductosTableAdapter productosTableAdapter = new ProductosTableAdapter();
+            productosTableAdapter.Connection.Open();
+            try
+            {
+                productosTableAdapter.Transaction = productosTableAdapter.Transaction.Connection.BeginTransaction();
+                productosTableAdapter.ppDeleteProducto(IdProducto);
+                productosTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                productosTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            productosTableAdapter.Connection.Close ();
+            log.Info("Producto eliminado exitosamente");            
+        }
+
+        [WebMethod]
+        public void DeleteUsuario(int IdUsuario)
+        {
+            UsuariosTableAdapter usuariosTableAdapter = new UsuariosTableAdapter();
+            usuariosTableAdapter.Connection.Open();
+            try
+            {
+                usuariosTableAdapter.Transaction = usuariosTableAdapter.Transaction.Connection.BeginTransaction();  
+                usuariosTableAdapter.ppDeleteUsuario(IdUsuario);
+                usuariosTableAdapter.Transaction.Commit();
+            }
+            catch (Exception err)
+            {
+                usuariosTableAdapter.Transaction.Rollback();
+                log.Error(err);
+            }
+            usuariosTableAdapter.Connection.Close();
+            log.Info("Usuario Eliminado Exitosamente");
+        }
 
     }
 }
